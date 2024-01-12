@@ -46,7 +46,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
 
-    m_controller = new GenericHid(0);
+    m_controller = new GenericHID(0);
   }
 
   /**
