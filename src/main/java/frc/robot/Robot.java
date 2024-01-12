@@ -31,6 +31,8 @@ public class Robot extends TimedRobot {
 
   Compressor compressor = new Compressor(1, PneumaticsModuleType.REVPH);
 
+  private GenericHID m_controller;
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -40,6 +42,8 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+
+    m_controller = new GenericHid(0);
   }
 
   /**
@@ -100,27 +104,36 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    doubleSolenoid.set(kForward);
+    // doubleSolenoid.set(kForward);
 
     
 
-    try {
-      Thread.sleep(5000, 0);
-    } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+    // try {
+    //   Thread.sleep(5000, 0);
+    // } catch (InterruptedException e) {
+    //   // TODO Auto-generated catch block
+    //   e.printStackTrace();
+    // }
+
+    // doubleSolenoid.set(kReverse);
+
+    // try {
+    //   Thread.sleep(5000, 0);
+    // } catch (InterruptedException e) {
+    //   // TODO Auto-generated catch block
+    //   e.printStackTrace();
+    // }
+
+    // System.out.println(compressor.getPressure());
+
+    //use controller to operate solenoid
+    if(m_controller.getRawButton(7)){
+      doubleSolenoid.set(kForward);
     }
 
-    doubleSolenoid.set(kReverse);
-
-    try {
-      Thread.sleep(5000, 0);
-    } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+    if(m_controller.getRawButton(5)){
+      doubleSolenoid.set(kReverse);
     }
-
-    System.out.println(compressor.getPressure());
     
   }
 
