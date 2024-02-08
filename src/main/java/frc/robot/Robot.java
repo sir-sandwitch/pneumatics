@@ -9,8 +9,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.*;
 
-import java.io.Console;
-
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -30,7 +28,8 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
   
-  DoubleSolenoid doubleSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, 0, 1);
+  DoubleSolenoid doubleSolenoid1 = new DoubleSolenoid(PneumaticsModuleType.REVPH, 0, 1);
+  DoubleSolenoid doubleSolenoid2 = new DoubleSolenoid(PneumaticsModuleType.REVPH, 2, 3);
 
   Compressor compressor = new Compressor(1, PneumaticsModuleType.REVPH);
 
@@ -94,20 +93,20 @@ public class Robot extends TimedRobot {
     // continue until interrupted by another command, remove
     // this line or comment it out.
 
-    compressor.enableAnalog(55, 60);
+    compressor.enableAnalog(115,120);
 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
 
 
-    doubleSolenoid.set(kOff);
+    doubleSolenoid1.set(kOff);
   }
 
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    // doubleSolenoid.set(kForward);
+    // doubleSolenoid1.set(kForward);
 
     
 
@@ -118,7 +117,7 @@ public class Robot extends TimedRobot {
     //   e.printStackTrace();
     // }
 
-    // doubleSolenoid.set(kReverse);
+    // doubleSolenoid1.set(kReverse);
 
     // try {
     //   Thread.sleep(5000, 0);
@@ -127,15 +126,17 @@ public class Robot extends TimedRobot {
     //   e.printStackTrace();
     // }
 
-    // System.out.println(compressor.getPressure());
+    System.out.println(compressor.getPressure());
 
     //use controller to operate solenoid
     if(m_controller.getRawButton(7)){
-      doubleSolenoid.set(kForward);
+      doubleSolenoid1.set(kForward);
+      doubleSolenoid2.set(kForward);
     }
 
     if(m_controller.getRawButton(5)){
-      doubleSolenoid.set(kReverse);
+      doubleSolenoid1.set(kReverse);
+      doubleSolenoid2.set(kReverse);
     }
     
   }
